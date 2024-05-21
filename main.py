@@ -11,10 +11,12 @@ import numpy as np
 from src import NeuralNet, SmoothSailing, kappa
 
 args = SimpleNamespace(batch_size=64, test_batch_size=1000, epochs=10,
-                       lr=0.001, momentum=0.5, seed=1, log_interval=100)
+                       lr=0.0001, momentum=0.5, seed=1, log_interval=100)
 torch.manual_seed(args.seed)
 use_cuda = torch.cuda.is_available()
 device = torch.device('cuda' if use_cuda else 'cpu')
+
+print(device)
 
 kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
 
@@ -40,7 +42,7 @@ optimizer = optim.Adam(model.parameters(), lr=args.lr)
 
 torch.manual_seed(args.seed)
 model_reg = NeuralNet().to(device)
-smoothsail = SmoothSailing(beta=1)
+smoothsail = SmoothSailing(beta=0.1)
 optimizer_reg = optim.Adam(model_reg.parameters(), lr=args.lr)
 
 
