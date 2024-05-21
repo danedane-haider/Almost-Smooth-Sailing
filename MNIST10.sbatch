@@ -10,4 +10,4 @@
 #SBATCH --time=08:00:00
 #SBATCH --qos=short
 
-~/.conda/envs/randomfilterbanks/bin/python main.py --beta 0.001
+~/.conda/envs/randomfilterbanks/bin/python main.py --beta 10
