@@ -11,7 +11,6 @@ from types import SimpleNamespace
 import matplotlib.pyplot as plt
 import numpy as np
 from src import NeuralNet, SmoothSailing, kappa
-import json
 
 def main(args):
     config = SimpleNamespace(batch_size=32,
