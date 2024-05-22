@@ -242,13 +242,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--beta_end",
         type=float,
-        default=0.05,
+        default=0.1,
         help="Beta for encoder/decoder (default:  1)",
     )
     parser.add_argument(
         "--beta_mid",
         type=float,
-        default=0.01,
+        default=0.005,
         help="Beta for middle layers (default: 1)",
     )
     parser.add_argument(
@@ -266,7 +266,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--lr",
         type=float,
-        default=1e-4,
+        default=0.005,
         help="Learning rate of the optimizer.",
     )
     parser.add_argument(
