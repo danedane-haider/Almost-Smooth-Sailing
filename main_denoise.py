@@ -241,13 +241,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--beta_end",
         type=float,
-        default=1,
+        default=0.05,
         help="Beta for encoder/decoder (default:  1)",
     )
     parser.add_argument(
         "--beta_mid",
         type=float,
-        default=1,
+        default=0.01,
         help="Beta for middle layers (default: 1)",
     )
     parser.add_argument(
