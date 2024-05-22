@@ -190,6 +190,9 @@ def main(args):
     torch.save(model.state_dict(), f"model_{config.beta}.pt")
     torch.save(model_reg.state_dict(), f"model_reg_{config.beta}.pt")
 
+
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
