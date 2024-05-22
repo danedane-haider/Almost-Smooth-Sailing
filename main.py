@@ -11,6 +11,7 @@ from types import SimpleNamespace
 import matplotlib.pyplot as plt
 import numpy as np
 from src import NeuralNet, SmoothSailing, kappa
+import json
 
 def main(args):
     config = SimpleNamespace(batch_size=32,
@@ -153,7 +154,7 @@ def main(args):
 
             output_0 = model_0(data)
             loss_0 = sail_0(output_0, target)
-            optimizer.zero_grad()
+            optimizer_0.zero_grad()
             loss_0.backward()
             optimizer_0.step()
 

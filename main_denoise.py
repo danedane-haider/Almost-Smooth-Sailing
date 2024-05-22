@@ -1,5 +1,6 @@
 import argparse
 import pickle
+import json
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -23,7 +24,8 @@ def main(args):
                             beta_end=args.beta_end,
                             beta_mid=args.beta_mid,
                             end_layer_size=args.end_layer_size,
-                            mid_layer_size=args.mid_layer_size)
+                            mid_layer_size=args.mid_layer_size,
+                            noise_level=args.noise_level)
     torch.manual_seed(config.seed)
     use_cuda = torch.cuda.is_available()
     device = torch.device('cuda' if use_cuda else 'cpu')
@@ -33,6 +35,7 @@ def main(args):
     print('beta_mid: ', config.beta_mid)
     print('end_layer_size: ', config.end_layer_size)
     print('mid_layer_size: ', config.mid_layer_size)
+    print('noise_level: ', config.noise_level)
 
     kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
 
@@ -122,7 +125,9 @@ def main(args):
         model_reg.train()
 
         for batch_idx, (data, target) in enumerate(train_loader):
+            noisy_data = data + args.noise_level * torch.randn(data.shape)
             data = Variable(data.view(-1, 28*28))
+            target = Variable(noisy_data.view(-1, input_dim))
             data, target = data.to(device), target.to(device)
 
             output = model(data)
@@ -156,7 +161,9 @@ def main(args):
 
         with torch.no_grad():
             for data, target in test_loader:
-                data = Variable(data.view(-1, 28*28))
+                noisy_data = data + args.noise_level * torch.randn(data.shape)
+                data = Variable(data.view(-1, input_dim))
+                target = Variable(noisy_data.view(-1, input_dim))
                 data, target = data.to(device), target.to(device)
 
                 output = model(data)
@@ -172,12 +179,6 @@ def main(args):
 
                 running_val_loss += loss.item()
                 running_val_loss_reg += loss_bas.item()
-
-                pred = output.max(1, keepdim=True)[1]
-                pred_reg = output_reg.max(1, keepdim=True)[1]
-                accur = pred.eq(target.view_as(pred)).sum().item()
-                accur_reg = pred_reg.eq(target.view_as(pred_reg)).sum().item()
-
 
         W1 = model.linear1.weight.data
         M1 = model.middle1.weight.data
@@ -210,7 +211,7 @@ def main(args):
 
 
     # save results detached from the gradient graph
-    results = {
+    denoise_results = {
         "fit": fit,
         "fit_val": fit_val,
         "fit_reg": fit_reg,
@@ -225,18 +226,18 @@ def main(args):
         "cond_dec_reg": cond_dec_reg,
     }
 
-    with open(f"results_{config.beta}.pkl", "wb") as f:
-        pickle.dump(results, f)
+    with open(f"denoise_results{args.noise_level}.json", "w") as f:
+        json.dump(denoise_results, f)
     
     # save models
-    torch.save(model.state_dict(), f"model_{config.beta}.pt")
-    torch.save(model_reg.state_dict(), f"model_reg_{config.beta}.pt")
+    torch.save(model.state_dict(), f"denoise_model{args.noise_level}.pt")
+    torch.save(model_reg.state_dict(), f"denoise_model_reg{args.noise_level}.pt")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "--epochs", type=int, default=51, help="Number of epochs (default: 51)"
+        "--epochs", type=int, default=100, help="Number of epochs (default: 100)"
     )
     parser.add_argument(
         "--beta_end",
@@ -268,5 +269,12 @@ if __name__ == "__main__":
         default=1e-4,
         help="Learning rate of the optimizer.",
     )
+    parser.add_argument(
+        "--noise-level",
+        type=float,
+        default=0.1,
+        help="Noise level for the data.",
+    )
+
 
     main(parser.parse_args())
