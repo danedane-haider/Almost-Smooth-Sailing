@@ -208,64 +208,97 @@ def main(args):
                 data = Variable(data.view(-1, 28*28))
                 data, target = data.to(device), target.to(device)
 
-                output = model(data)
-                loss = sail(output, target)
+                output_0 = model_0(data)
+                loss_0 = sail_0(output_0, target)
 
-                output_reg = model_reg(data)
-                W = model_reg.linear1.weight
-                loss_bas, loss_reg = smoothsail(output_reg, target, W)
+                W_0001 = model_0001.linear1.weight
+                output_0001 = model_0001(data)
+                loss_0001, loss_0001 = smoothsail(output_0001, target, W_0001)
 
-                running_val_loss += loss.item()
-                running_val_loss_reg += loss_bas.item()
+                W_001 = model_001.linear1.weight
+                output_001 = model_001(data)
+                loss_001, loss_001 = smoothsail(output_001, target, W_001)
 
-        W = model.linear1.weight.data
-        cond.append(kappa(W))
-        W_reg = model_reg.linear1.weight.data
-        cond_reg.append(kappa(W_reg))
+                W_01 = model_01.linear1.weight
+                output_01 = model_01(data)
+                loss_01, loss_01 = smoothsail(output_01, target, W_01)
 
-        fit.append(running_loss/len(test_loader.dataset))
-        fit_val.append(running_val_loss/config.test_batch_size)
-        fit_reg.append(running_loss_reg/len(test_loader.dataset))
-        fit_reg_val.append(running_val_loss_reg/config.test_batch_size)
+                W_1 = model_1.linear1.weight
+                output_1 = model_1(data)
+                loss_1, loss_1 = smoothsail(output_1, target, W_1)
 
-        acc.append(accur/config.test_batch_size*100)
-        acc_reg.append(accur_reg/config.test_batch_size*100)
+                running_val_loss_0 += loss_0.item()
+                running_val_loss_0001 += loss_0001.item()
+                running_val_loss_001 += loss_001.item()
+                running_val_loss_01 += loss_01.item()
+                running_val_loss_1 += loss_1.item()
+
+        W_0 = model_0.linear1.weight.data
+        cond_0.append(kappa(W_0))
+        W_0001 = model_0001.linear1.weight.data
+        cond_0001.append(kappa(W_0001))
+        W_001 = model_001.linear1.weight.data
+        cond_001.append(kappa(W_001))
+        W_01 = model_01.linear1.weight.data
+        cond_01.append(kappa(W_01))
+        W_1 = model_1.linear1.weight.data
+        cond_1.append(kappa(W_1))
+
+        fit_0.append(running_loss_0/len(train_loader.dataset))
+        fit_0_val.append(running_val_loss_0/config.test_batch_size)
+        fit_0001.append(running_loss_0001/len(train_loader.dataset))
+        fit_0001_val.append(running_val_loss_0001/config.test_batch_size)
+        fit_001.append(running_loss_001/len(train_loader.dataset))
+        fit_001_val.append(running_val_loss_001/config.test_batch_size)
+        fit_01.append(running_loss_01/len(train_loader.dataset))
+        fit_01_val.append(running_val_loss_01/config.test_batch_size)
+        fit_1.append(running_loss_1/len(train_loader.dataset))
+        fit_1_val.append(running_val_loss_1/config.test_batch_size)
 
 
         print(f"Epoch {epoch+1}/{config.epochs}:")
-        print(f"\tLoss: {fit[-1]:.2f} with condition number {cond[-1]:.2f}")
-        print(f"\tRegularized Loss: {fit_reg[-1]:.2f} with condition number {cond_reg[-1]:.2f}")
-        print(f"\tAccuracy: {acc[-1]:.2f}%")
-        print(f"\tRegularized Accuracy: {acc_reg[-1]:.2f}%")
+        print(f"\tBeta = 0, Loss: {fit_0[-1]:.2f} with condition number {cond_0[-1]:.2f}")
+        print(f"\tBeta = 0.001, Loss: {fit_0001[-1]:.2f} with condition number {cond_0001[-1]:.2f}")
+        print(f"\tBeta = 0.01, Loss: {fit_001[-1]:.2f} with condition number {cond_001[-1]:.2f}")
+        print(f"\tBeta = 0.1, Loss: {fit_01[-1]:.2f} with condition number {cond_01[-1]:.2f}")
+        print(f"\tBeta = 1, Loss: {fit_1[-1]:.2f} with condition number {cond_1[-1]:.2f}")
 
 
     # save results as dictionary
     results = {
-        "fit": fit,
-        "fit_val": fit_val,
-        "fit_reg": fit_reg,
-        "fit_reg_val": fit_reg_val,
-        "acc": acc,
-        "acc_reg": acc_reg,
-        "cond": cond,
-        "cond_reg": cond_reg
+        "fit_0": fit_0,
+        "fit_0_val": fit_0_val,
+        "fit_0001": fit_0001,
+        "fit_0001_val": fit_0001_val,
+        "fit_001": fit_001,
+        "fit_001_val": fit_001_val,
+        "fit_01": fit_01,
+        "fit_01_val": fit_01_val,
+        "fit_1": fit_1,
+        "fit_1_val": fit_1_val,
+        "cond_0": cond_0,
+        "cond_0001": cond_0001,
+        "cond_001": cond_001,
+        "cond_01": cond_01,
+        "cond_1": cond_1,
     }
 
     with open(f"results_{config.beta}.json", "w") as f:
         json.dump(results, f)
     
     # save models
-    torch.save(model.state_dict(), f"model_{config.beta}.pt")
-    torch.save(model_reg.state_dict(), f"model_reg_{config.beta}.pt")
-
-
+    torch.save(model_0.state_dict(), "model_0_new.pt")
+    torch.save(model_0001.state_dict(), "model_0001_new.pt")
+    torch.save(model_001.state_dict(), "model_001_new.pt")
+    torch.save(model_01.state_dict(), "model_01_new.pt")
+    torch.save(model_1.state_dict(), "model_1_new.pt")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "--epochs", type=int, default=51, help="Number of epochs (default: 51)"
+        "--epochs", type=int, default=100, help="Number of epochs (default: 100)"
     )
     parser.add_argument(
         "--beta",
