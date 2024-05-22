@@ -91,11 +91,7 @@ def main(args):
     fit_01_val = []
     fit_1 = []
     fit_1_val = []
-    acc_0 = []
-    acc_0001 = []
-    acc_001 = []
-    acc_01 = []
-    acc_1 = []
+
     cond_0 = []
     cond_0001 = []
     cond_001 = []
@@ -265,7 +261,13 @@ def main(args):
         print(f"\tBeta = 1, Loss: {fit_1[-1]:.2f} with condition number {cond_1[-1]:.2f}")
 
 
-    # save results as dictionary
+    # save models
+    torch.save(model_0.state_dict(), "model_0_new.pt")
+    torch.save(model_0001.state_dict(), "model_0001_new.pt")
+    torch.save(model_001.state_dict(), "model_001_new.pt")
+    torch.save(model_01.state_dict(), "model_01_new.pt")
+    torch.save(model_1.state_dict(), "model_1_new.pt")
+
     results = {
         "fit_0": fit_0,
         "fit_0_val": fit_0_val,
@@ -284,15 +286,10 @@ def main(args):
         "cond_1": cond_1,
     }
 
-    with open(f"results_{config.beta}.json", "w") as f:
-        json.dump(results, f)
+    with open("results_new.pkl", "wb") as f:
+        pickle.dump(results, f)
     
-    # save models
-    torch.save(model_0.state_dict(), "model_0_new.pt")
-    torch.save(model_0001.state_dict(), "model_0001_new.pt")
-    torch.save(model_001.state_dict(), "model_001_new.pt")
-    torch.save(model_01.state_dict(), "model_01_new.pt")
-    torch.save(model_1.state_dict(), "model_1_new.pt")
+
 
 
 if __name__ == "__main__":

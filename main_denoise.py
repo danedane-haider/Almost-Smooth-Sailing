@@ -210,6 +210,10 @@ def main(args):
         print(f"\tRegularized Loss: {fit_reg[-1]:.2f} with condition numbers {cond_enc_reg[-1]:.2f}", f"{cond_mid1_reg[-1]:.2f}", f"{cond_mid2_reg[-1]:.2f}", f"{cond_dec_reg[-1]:.2f}")
 
 
+    # save models
+    torch.save(model.state_dict(), f"denoise_model{args.noise_level}.pt")
+    torch.save(model_reg.state_dict(), f"denoise_model_reg{args.noise_level}.pt")
+
     # save results detached from the gradient graph
     denoise_results = {
         "fit": fit,
@@ -226,12 +230,8 @@ def main(args):
         "cond_dec_reg": cond_dec_reg,
     }
 
-    with open(f"denoise_results{args.noise_level}.json", "w") as f:
-        json.dump(denoise_results, f)
-    
-    # save models
-    torch.save(model.state_dict(), f"denoise_model{args.noise_level}.pt")
-    torch.save(model_reg.state_dict(), f"denoise_model_reg{args.noise_level}.pt")
+    with open(f"denoise_results{args.noise_level}.pkl", "wb") as f:
+        pickle.dump(denoise_results, f)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

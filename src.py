@@ -73,6 +73,6 @@ class SmoothSailingAE(nn.Module):
             return base_loss, reg_loss
         
 def kappa(W):
-    W_max = LA.norm(W, 2)
-    W_min = LA.norm(LA.pinv(W), 2)
+    W_max = LA.norm(W, 2).item()
+    W_min = LA.norm(LA.pinv(W), 2).item()
     return W_max * W_min 
