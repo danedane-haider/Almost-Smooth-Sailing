@@ -1,0 +1,9 @@
+lr:  0.0001
+beta:  1
+layer_size:  2048
+Init condition numbers:
+	Beta = 0: 4.28
+	Beta = 0.001: 4.28
+	Beta = 0.01: 4.28
+	Beta = 0.1: 4.28
+	Beta = 1: 4.28

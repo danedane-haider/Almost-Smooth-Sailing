@@ -2,7 +2,7 @@
 
 #SBATCH -p g                    # to get on part g
 #SBATCH --gres=gpu:1
- #SBATCH --constraint=g3
+#SBATCH --constraint=g3
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=5
@@ -10,4 +10,4 @@
 #SBATCH --time=08:00:00
 #SBATCH --qos=short
 
-~/.conda/envs/randomfilterbanks/bin/python main_denoise.py --noise_level 0.1
+~/.conda/envs/randomfilterbanks/bin/python main_denoise.py --noise_level 0.5
