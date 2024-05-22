@@ -171,7 +171,7 @@ def main(args):
         print(f"\tRegularized Accuracy: {acc_reg[-1]:.2f}%")
 
 
-    # save results
+    # save results detached from the gradient graph
     results = {
         "fit": fit,
         "fit_val": fit_val,
