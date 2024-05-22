@@ -210,7 +210,13 @@ def main(args):
         print(f"\tRegularized Loss: {fit_reg[-1]:.2f} with condition numbers {cond_enc_reg[-1]:.2f}", f"{cond_mid1_reg[-1]:.2f}", f"{cond_mid2_reg[-1]:.2f}", f"{cond_dec_reg[-1]:.2f}")
 
 
-    # save results detached from the gradient graph
+    # save models
+    torch.save(model.state_dict(), f"denoise_model{args.noise_level}.pt")
+    torch.save(model_reg.state_dict(), f"denoise_model_reg{args.noise_level}.pt")
+
+    # convert the condition numbers to lists
+    
+
     denoise_results = {
         "fit": fit,
         "fit_val": fit_val,
@@ -228,10 +234,6 @@ def main(args):
 
     with open(f"denoise_results{args.noise_level}.json", "w") as f:
         json.dump(denoise_results, f)
-    
-    # save models
-    torch.save(model.state_dict(), f"denoise_model{args.noise_level}.pt")
-    torch.save(model_reg.state_dict(), f"denoise_model_reg{args.noise_level}.pt")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -242,13 +244,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--beta_end",
         type=float,
-        default=0.05,
+        default=0.1,
         help="Beta for encoder/decoder (default:  1)",
     )
     parser.add_argument(
         "--beta_mid",
         type=float,
-        default=0.01,
+        default=0.005,
         help="Beta for middle layers (default: 1)",
     )
     parser.add_argument(
@@ -266,7 +268,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--lr",
         type=float,
-        default=1e-4,
+        default=0.005,
         help="Learning rate of the optimizer.",
     )
     parser.add_argument(
