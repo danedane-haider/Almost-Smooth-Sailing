@@ -48,7 +48,7 @@ class SmoothSailing(nn.Module):
         
 class SmoothSailingAE(nn.Module):
     def __init__(self, beta_end=0, beta_mid=0):
-        super(SmoothSailing, self).__init__()
+        super(SmoothSailingAE, self).__init__()
         self.loss = nn.MSELoss()
         self.beta_end = beta_end
         self.beta_mid = beta_mid

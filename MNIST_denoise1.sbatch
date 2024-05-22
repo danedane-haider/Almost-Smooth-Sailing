@@ -10,4 +10,4 @@
 #SBATCH --time=08:00:00
 #SBATCH --qos=short
 
-~/.conda/envs/randomfilterbanks/bin/python main.py --noise_level 1
+~/.conda/envs/randomfilterbanks/bin/python main_denoise.py --noise_level 1

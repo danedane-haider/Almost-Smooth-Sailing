@@ -160,28 +160,28 @@ def main(args):
 
             W_0001 = model_0001.linear1.weight
             output_0001 = model_0001(data)
-            loss_bas_0001, loss_0001 = sail0001(output_0001, target, W_0001)
+            loss_bas_0001, loss_0001 = sail_0001(output_0001, target, W_0001)
             optimizer_0001.zero_grad()
             loss_0001.backward()
             optimizer_0001.step()
 
             W_001 = model_001.linear1.weight
             output_001 = model_001(data)
-            loss_bas_001, loss_001 = sail001(output_001, target, W_001)
+            loss_bas_001, loss_001 = sail_001(output_001, target, W_001)
             optimizer_001.zero_grad()
             loss_001.backward()
             optimizer_001.step()
 
             W_01 = model_01.linear1.weight
             output_01 = model_01(data)
-            loss_bas_01, loss_01 = sail01(output_01, target, W_01)
+            loss_bas_01, loss_01 = sail_01(output_01, target, W_01)
             optimizer_01.zero_grad()
             loss_01.backward()
             optimizer_01.step()
 
             W_1 = model_1.linear1.weight
             output_1 = model_1(data)
-            loss_bas_1, loss_1 = sail1(output_1, target, W_1)
+            loss_bas_1, loss_1 = sail_1(output_1, target, W_1)
             optimizer_1.zero_grad()
             loss_1.backward()
             optimizer_1.step()
@@ -214,19 +214,19 @@ def main(args):
 
                 W_0001 = model_0001.linear1.weight
                 output_0001 = model_0001(data)
-                loss_0001, loss_0001 = smoothsail(output_0001, target, W_0001)
+                loss_0001, loss_0001 = sail_0001(output_0001, target, W_0001)
 
                 W_001 = model_001.linear1.weight
                 output_001 = model_001(data)
-                loss_001, loss_001 = smoothsail(output_001, target, W_001)
+                loss_001, loss_001 = sail_001(output_001, target, W_001)
 
                 W_01 = model_01.linear1.weight
                 output_01 = model_01(data)
-                loss_01, loss_01 = smoothsail(output_01, target, W_01)
+                loss_01, loss_01 = sail_01(output_01, target, W_01)
 
                 W_1 = model_1.linear1.weight
                 output_1 = model_1(data)
-                loss_1, loss_1 = smoothsail(output_1, target, W_1)
+                loss_1, loss_1 = sail_1(output_1, target, W_1)
 
                 running_val_loss_0 += loss_0.item()
                 running_val_loss_0001 += loss_0001.item()

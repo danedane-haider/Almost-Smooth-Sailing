@@ -127,7 +127,7 @@ def main(args):
         for batch_idx, (data, target) in enumerate(train_loader):
             noisy_data = data + args.noise_level * torch.randn(data.shape)
             data = Variable(data.view(-1, 28*28))
-            target = Variable(noisy_data.view(-1, input_dim))
+            target = Variable(noisy_data.view(-1, 28*28))
             data, target = data.to(device), target.to(device)
 
             output = model(data)
@@ -162,8 +162,8 @@ def main(args):
         with torch.no_grad():
             for data, target in test_loader:
                 noisy_data = data + args.noise_level * torch.randn(data.shape)
-                data = Variable(data.view(-1, input_dim))
-                target = Variable(noisy_data.view(-1, input_dim))
+                data = Variable(data.view(-1, 28*28))
+                target = Variable(noisy_data.view(-1, 28*28))
                 data, target = data.to(device), target.to(device)
 
                 output = model(data)
@@ -200,12 +200,12 @@ def main(args):
 
 
         fit.append(running_loss/len(train_loader.dataset))
-        fit_val.append(running_val_loss/args.test_batch_size)
+        fit_val.append(running_val_loss/config.test_batch_size)
         fit_reg.append(running_loss_reg/len(train_loader.dataset))
-        fit_reg_val.append(running_val_loss_reg/args.test_batch_size)
+        fit_reg_val.append(running_val_loss_reg/config.test_batch_size)
 
 
-        print(f"Epoch {epoch+1}/{args.epochs}:")
+        print(f"Epoch {epoch+1}/{config.epochs}:")
         print(f"\tLoss: {fit[-1]:.2f} with condition numbers {cond_enc[-1]:.2f}", f"{cond_mid1[-1]:.2f}", f"{cond_mid2[-1]:.2f}", f"{cond_dec[-1]:.2f}")
         print(f"\tRegularized Loss: {fit_reg[-1]:.2f} with condition numbers {cond_enc_reg[-1]:.2f}", f"{cond_mid1_reg[-1]:.2f}", f"{cond_mid2_reg[-1]:.2f}", f"{cond_dec_reg[-1]:.2f}")
 
@@ -270,7 +270,7 @@ if __name__ == "__main__":
         help="Learning rate of the optimizer.",
     )
     parser.add_argument(
-        "--noise-level",
+        "--noise_level",
         type=float,
         default=0.1,
         help="Noise level for the data.",
