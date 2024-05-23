@@ -210,8 +210,8 @@ def main(args):
 
 
     # save models
-    torch.save(model.state_dict(), f"denoise_model2{args.noise_level}.pt")
-    torch.save(model_reg.state_dict(), f"denoise_model_reg2{args.noise_level}.pt")
+    torch.save(model.state_dict(), f"denoise_model3{args.noise_level}.pt")
+    torch.save(model_reg.state_dict(), f"denoise_model_reg3{args.noise_level}.pt")
 
     # save results detached from the gradient graph
     denoise_results = {
@@ -229,7 +229,7 @@ def main(args):
         "cond_dec_reg": cond_dec_reg,
     }
 
-    with open(f"denoise_results2{args.noise_level}.pkl", "wb") as f:
+    with open(f"denoise_results3{args.noise_level}.pkl", "wb") as f:
         pickle.dump(denoise_results, f)
 
 if __name__ == "__main__":
@@ -241,13 +241,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--beta_end",
         type=float,
-        default=0.5,
+        default=1,
         help="Beta for encoder/decoder (default:  1)",
     )
     parser.add_argument(
         "--beta_mid",
         type=float,
-        default=0.001,
+        default=0.0001,
         help="Beta for middle layers (default: 1)",
     )
     parser.add_argument(
