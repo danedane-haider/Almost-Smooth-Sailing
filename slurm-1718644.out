@@ -2141,3 +2141,69 @@ Train Epoch: 96 [57600/60000 (96%)]	Loss: 4.797097	Loss_reg: 4.542439
 Epoch 97/100:
 	Loss: 0.15 with condition numbers 56.54 11.29 6.35 30.21
 	Regularized Loss: 0.14 with condition numbers 17.82 1.09 1.09 12.21
+Train Epoch: 97 [0/60000 (0%)]	Loss: 4.865619	Loss_reg: 4.605111
+Train Epoch: 97 [3200/60000 (5%)]	Loss: 4.824704	Loss_reg: 4.593097
+Train Epoch: 97 [6400/60000 (11%)]	Loss: 4.934869	Loss_reg: 4.650078
+Train Epoch: 97 [9600/60000 (16%)]	Loss: 4.798579	Loss_reg: 4.547134
+Train Epoch: 97 [12800/60000 (21%)]	Loss: 4.848772	Loss_reg: 4.601614
+Train Epoch: 97 [16000/60000 (27%)]	Loss: 4.904882	Loss_reg: 4.639303
+Train Epoch: 97 [19200/60000 (32%)]	Loss: 4.853106	Loss_reg: 4.582310
+Train Epoch: 97 [22400/60000 (37%)]	Loss: 4.893752	Loss_reg: 4.641458
+Train Epoch: 97 [25600/60000 (43%)]	Loss: 4.779659	Loss_reg: 4.527916
+Train Epoch: 97 [28800/60000 (48%)]	Loss: 4.827533	Loss_reg: 4.561166
+Train Epoch: 97 [32000/60000 (53%)]	Loss: 4.833477	Loss_reg: 4.583611
+Train Epoch: 97 [35200/60000 (59%)]	Loss: 4.862124	Loss_reg: 4.600593
+Train Epoch: 97 [38400/60000 (64%)]	Loss: 4.859762	Loss_reg: 4.610516
+Train Epoch: 97 [41600/60000 (69%)]	Loss: 4.861414	Loss_reg: 4.611984
+Train Epoch: 97 [44800/60000 (75%)]	Loss: 4.759274	Loss_reg: 4.524670
+Train Epoch: 97 [48000/60000 (80%)]	Loss: 4.823363	Loss_reg: 4.571271
+Train Epoch: 97 [51200/60000 (85%)]	Loss: 4.829440	Loss_reg: 4.606673
+Train Epoch: 97 [54400/60000 (91%)]	Loss: 4.838387	Loss_reg: 4.610952
+Train Epoch: 97 [57600/60000 (96%)]	Loss: 4.828824	Loss_reg: 4.569416
+Epoch 98/100:
+	Loss: 0.15 with condition numbers 56.54 11.29 6.35 30.22
+	Regularized Loss: 0.14 with condition numbers 16.36 1.11 1.11 10.49
+Train Epoch: 98 [0/60000 (0%)]	Loss: 4.860866	Loss_reg: 4.616241
+Train Epoch: 98 [3200/60000 (5%)]	Loss: 4.785399	Loss_reg: 4.525417
+Train Epoch: 98 [6400/60000 (11%)]	Loss: 4.853885	Loss_reg: 4.616101
+Train Epoch: 98 [9600/60000 (16%)]	Loss: 4.804902	Loss_reg: 4.576361
+Train Epoch: 98 [12800/60000 (21%)]	Loss: 4.798411	Loss_reg: 4.559186
+Train Epoch: 98 [16000/60000 (27%)]	Loss: 4.862779	Loss_reg: 4.640151
+Train Epoch: 98 [19200/60000 (32%)]	Loss: 4.875671	Loss_reg: 4.597711
+Train Epoch: 98 [22400/60000 (37%)]	Loss: 4.785235	Loss_reg: 4.546690
+Train Epoch: 98 [25600/60000 (43%)]	Loss: 4.856972	Loss_reg: 4.601549
+Train Epoch: 98 [28800/60000 (48%)]	Loss: 4.935745	Loss_reg: 4.660519
+Train Epoch: 98 [32000/60000 (53%)]	Loss: 4.800364	Loss_reg: 4.531609
+Train Epoch: 98 [35200/60000 (59%)]	Loss: 4.768325	Loss_reg: 4.511641
+Train Epoch: 98 [38400/60000 (64%)]	Loss: 4.828736	Loss_reg: 4.590066
+Train Epoch: 98 [41600/60000 (69%)]	Loss: 4.752461	Loss_reg: 4.527199
+Train Epoch: 98 [44800/60000 (75%)]	Loss: 4.830593	Loss_reg: 4.575583
+Train Epoch: 98 [48000/60000 (80%)]	Loss: 4.788377	Loss_reg: 4.553123
+Train Epoch: 98 [51200/60000 (85%)]	Loss: 4.893126	Loss_reg: 4.649559
+Train Epoch: 98 [54400/60000 (91%)]	Loss: 4.862905	Loss_reg: 4.616901
+Train Epoch: 98 [57600/60000 (96%)]	Loss: 4.875713	Loss_reg: 4.617193
+Epoch 99/100:
+	Loss: 0.15 with condition numbers 56.54 11.29 6.35 30.22
+	Regularized Loss: 0.14 with condition numbers 15.15 1.12 1.08 13.11
+Train Epoch: 99 [0/60000 (0%)]	Loss: 4.852167	Loss_reg: 4.615921
+Train Epoch: 99 [3200/60000 (5%)]	Loss: 4.802444	Loss_reg: 4.564381
+Train Epoch: 99 [6400/60000 (11%)]	Loss: 4.889520	Loss_reg: 4.653605
+Train Epoch: 99 [9600/60000 (16%)]	Loss: 4.886670	Loss_reg: 4.633726
+Train Epoch: 99 [12800/60000 (21%)]	Loss: 4.823836	Loss_reg: 4.579068
+Train Epoch: 99 [16000/60000 (27%)]	Loss: 4.886881	Loss_reg: 4.616457
+Train Epoch: 99 [19200/60000 (32%)]	Loss: 4.898504	Loss_reg: 4.639916
+Train Epoch: 99 [22400/60000 (37%)]	Loss: 4.869485	Loss_reg: 4.624351
+Train Epoch: 99 [25600/60000 (43%)]	Loss: 4.773922	Loss_reg: 4.545938
+Train Epoch: 99 [28800/60000 (48%)]	Loss: 4.832913	Loss_reg: 4.594078
+Train Epoch: 99 [32000/60000 (53%)]	Loss: 4.852758	Loss_reg: 4.598820
+Train Epoch: 99 [35200/60000 (59%)]	Loss: 4.710003	Loss_reg: 4.501194
+Train Epoch: 99 [38400/60000 (64%)]	Loss: 4.822707	Loss_reg: 4.575439
+Train Epoch: 99 [41600/60000 (69%)]	Loss: 4.762024	Loss_reg: 4.516003
+Train Epoch: 99 [44800/60000 (75%)]	Loss: 4.846873	Loss_reg: 4.589003
+Train Epoch: 99 [48000/60000 (80%)]	Loss: 4.801436	Loss_reg: 4.531180
+Train Epoch: 99 [51200/60000 (85%)]	Loss: 4.836680	Loss_reg: 4.588308
+Train Epoch: 99 [54400/60000 (91%)]	Loss: 4.818312	Loss_reg: 4.567671
+Train Epoch: 99 [57600/60000 (96%)]	Loss: 4.886158	Loss_reg: 4.635449
+Epoch 100/100:
+	Loss: 0.15 with condition numbers 56.54 11.29 6.35 30.22
+	Regularized Loss: 0.14 with condition numbers 20.19 1.08 1.09 15.48
