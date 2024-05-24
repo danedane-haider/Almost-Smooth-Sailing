@@ -35,6 +35,7 @@ def main(args):
     print('end_layer_size: ', config.end_layer_size)
     print('mid_layer_size: ', config.mid_layer_size)
     print('noise_level: ', config.noise_level)
+    print('Regukarizer: ', 'Tikhonov')
 
     kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
 
@@ -210,8 +211,8 @@ def main(args):
 
 
     # save models
-    torch.save(model.state_dict(), f"denoise_model3_{args.noise_level}.pt")
-    torch.save(model_reg.state_dict(), f"denoise_model_reg3_{args.noise_level}.pt")
+    torch.save(model.state_dict(), f"denoise_model_tik_{args.noise_level}.pt")
+    torch.save(model_reg.state_dict(), f"denoise_model_reg_tik_{args.noise_level}.pt")
 
     # save results detached from the gradient graph
     denoise_results = {
@@ -229,7 +230,7 @@ def main(args):
         "cond_dec_reg": cond_dec_reg,
     }
 
-    with open(f"denoise_results3_{args.noise_level}.pkl", "wb") as f:
+    with open(f"denoise_results_tik_{args.noise_level}.pkl", "wb") as f:
         pickle.dump(denoise_results, f)
 
 if __name__ == "__main__":

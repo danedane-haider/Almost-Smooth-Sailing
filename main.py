@@ -29,6 +29,7 @@ def main(args):
     print('lr: ', config.lr)
     print('beta: ', config.beta)
     print('layer_size: ', config.layer_size)
+    print('Regularizer: ', 'Tikhonov')
 
     kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
 
@@ -261,11 +262,11 @@ def main(args):
 
 
     # save models
-    torch.save(model_0.state_dict(), "model_0_1024.pt")
-    torch.save(model_0001.state_dict(), "model_0001_1024.pt")
-    torch.save(model_001.state_dict(), "model_001_1024.pt")
-    torch.save(model_01.state_dict(), "model_01_1024.pt")
-    torch.save(model_1.state_dict(), "model_1_1024.pt")
+    torch.save(model_0.state_dict(), "model_0_tik.pt")
+    torch.save(model_0001.state_dict(), "model_0001_tik.pt")
+    torch.save(model_001.state_dict(), "model_001_tik.pt")
+    torch.save(model_01.state_dict(), "model_01_tik.pt")
+    torch.save(model_1.state_dict(), "model_1_tik.pt")
 
     results = {
         "fit_0": fit_0,
@@ -285,7 +286,7 @@ def main(args):
         "cond_1": cond_1,
     }
 
-    with open("results_1024.pkl", "wb") as f:
+    with open("results_tik.pkl", "wb") as f:
         pickle.dump(results, f)
     
 
@@ -295,7 +296,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "--epochs", type=int, default=100, help="Number of epochs (default: 100)"
+        "--epochs", type=int, default=50, help="Number of epochs (default: 100)"
     )
     parser.add_argument(
         "--beta",
