@@ -262,11 +262,11 @@ def main(args):
 
 
     # save models
-    torch.save(model_0.state_dict(), "model_0_tik.pt")
-    torch.save(model_0001.state_dict(), "model_0001_tik.pt")
-    torch.save(model_001.state_dict(), "model_001_tik.pt")
-    torch.save(model_01.state_dict(), "model_01_tik.pt")
-    torch.save(model_1.state_dict(), "model_1_tik.pt")
+    torch.save(model_0.state_dict(), "model_0_FIN.pt")
+    torch.save(model_0001.state_dict(), "model_0001_FIN.pt")
+    torch.save(model_001.state_dict(), "model_001_FIN.pt")
+    torch.save(model_01.state_dict(), "model_01_FIN.pt")
+    torch.save(model_1.state_dict(), "model_1_FIN.pt")
 
     results = {
         "fit_0": fit_0,
@@ -286,7 +286,7 @@ def main(args):
         "cond_1": cond_1,
     }
 
-    with open("results_tik.pkl", "wb") as f:
+    with open("results_FIN.pkl", "wb") as f:
         pickle.dump(results, f)
     
 
