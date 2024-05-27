@@ -29,7 +29,6 @@ def main(args):
     print('lr: ', config.lr)
     print('beta: ', config.beta)
     print('layer_size: ', config.layer_size)
-    print('Regularizer: ', 'Tikhonov')
 
     kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
 
