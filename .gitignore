@@ -6,6 +6,11 @@ __pycache__/
 .vscode/
 logs/
 
+MNIST.ipynb
+MNIST.ipynb
+MNIST_denoise.ipynb
+MNIST_denoise_copy.ipynb
+
 *.sbatch
 *.out
 *.pt
