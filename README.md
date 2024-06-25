@@ -13,7 +13,7 @@ where $S^\dagger$ is the pseudo inverse of $S$. The proposed regularizer is give
 $$r(S) := \frac{1}{2}\Vert S\Vert_2^2-\frac{1}{2\nu}\Vert S\Vert_F^2,$$
 where $\Vert\cdot\Vert_2$ denotes the spectral norm and $\Vert\cdot\Vert_F$ the Frobenius-norm. We can prove that
 
-$$r(S) = 0$ \text{ if and only if } $S$ \text{ has full rank and } $\kappa(S)=1.$$
+$$r(S) = 0 \text{ if and only if } S \text{ has full rank and } \kappa(S)=1.$$
 
 This repository provides all functions that are needed to use the proposed regularizer in any desired setting.
 
