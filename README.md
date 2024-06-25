@@ -7,7 +7,13 @@
 
 Maintaining numerical stability in networks is crucial for their reliability and performance. One approach to maintain stability of a network layer is to integrate the condition number of the weight matrix as a regularizing term into the optimization algorithm. However, due to its discontinuous nature and lack of differentiability the condition number is not suitable for a gradient descent approach. We introduces a novel regularizer that is provably differentiable almost everywhere and promotes matrices with low condition numbers.
 
-This repository provides all functions that are needed to use the regularizer in any desired setting.
+Let $S\in\R^{n\times m}$ be a matrix and let $\nu=\min\{n,m\}.$ The condition number of $S$ is defined as
+$$\kappa (S):={\norm{S}}_2{\norm{S^\dagger}}_2,$$
+where $S^\dagger$ is the pseudo inverse of $S$. The proposed regularizer is given by
+$$r(S) := \frac{1}{2}\norm{S}_2^2-\frac{1}{2\nu}\norm{S}_F^2,$$
+where $\norm{\cdot}_F$ denotes the Frobenius-norm for matrices. We can prove that $r(S) = 0$ if and only if $S$ has full rank and $\kappa(S)=1$.
+
+This repository provides all functions that are needed to use the proposed regularizer in any desired setting.
 
 ## Citation
 
