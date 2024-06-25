@@ -11,4 +11,5 @@ logs/
 *.pt
 *.txt
 *.pkl
+*.png
 pyrightconfig.json
