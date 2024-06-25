@@ -10,7 +10,8 @@ from torchvision import datasets, transforms
 from types import SimpleNamespace
 import matplotlib.pyplot as plt
 import numpy as np
-from src import AutoEncoder, SmoothSailingAE, kappa
+from models import AutoEncoder
+from loss import SmoothSailing, kappa
 
 def main(args):
     config = SimpleNamespace(batch_size=32,

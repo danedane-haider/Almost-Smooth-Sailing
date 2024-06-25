@@ -11,6 +11,7 @@ MNIST_denoise.ipynb
 MNIST_denoise_copy.ipynb
 main_class_all.py
 evaluation_class_all.ipynb
+src.py
 
 *.sbatch
 *.out

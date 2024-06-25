@@ -8,7 +8,8 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from types import SimpleNamespace
 import numpy as np
-from src import NeuralNet, SmoothSailing, kappa
+from models import NeuralNet
+from loss import SmoothSailing, kappa
 
 def main(args):
     config = SimpleNamespace(batch_size=32,
