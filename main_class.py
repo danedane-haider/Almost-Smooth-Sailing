@@ -4,11 +4,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
-from torch import linalg as LA
 import torch.optim as optim
 from torchvision import datasets, transforms
 from types import SimpleNamespace
-import matplotlib.pyplot as plt
 import numpy as np
 from src import NeuralNet, SmoothSailing, kappa
 
@@ -51,238 +49,79 @@ def main(args):
 
 
     torch.manual_seed(config.seed)
-    model_0 = NeuralNet(size=config.layer_size).to(device)
-    sail_0 = SmoothSailing(beta=0)
-    optimizer_0 = optim.Adam(model_0.parameters(), lr=config.lr)
-
-    torch.manual_seed(config.seed)
-    model_0001 = NeuralNet(size=config.layer_size).to(device)
-    sail_0001 = SmoothSailing(beta=0.001)
-    optimizer_0001 = optim.Adam(model_0001.parameters(), lr=config.lr)
-
-    torch.manual_seed(config.seed)
-    model_001 = NeuralNet(size=config.layer_size).to(device)
-    sail_001 = SmoothSailing(beta=0.01)
-    optimizer_001 = optim.Adam(model_001.parameters(), lr=config.lr)
-
-    torch.manual_seed(config.seed)
-    model_01 = NeuralNet(size=config.layer_size).to(device)
-    sail_01 = SmoothSailing(beta=0.1)
-    optimizer_01 = optim.Adam(model_01.parameters(), lr=config.lr)
-
-    torch.manual_seed(config.seed)
-    model_1 = NeuralNet(size=config.layer_size).to(device)
-    sail_1 = SmoothSailing(beta=1)
-    optimizer_1 = optim.Adam(model_1.parameters(), lr=config.lr)
+    model = NeuralNet(size=config.layer_size).to(device)
+    sail = SmoothSailing(beta=config.beta)
+    optimizer = optim.Adam(model.parameters(), lr=config.lr)
 
 
+    fit = []
+    fit_val = []
+    cond = []
 
+    W = model.linear1.weight.data
+    cond.append(kappa(W))
 
-
-
-    fit_0 = []
-    fit_0_val = []
-    fit_0001 = []
-    fit_0001_val = []
-    fit_001 = []
-    fit_001_val = []
-    fit_01 = []
-    fit_01_val = []
-    fit_1 = []
-    fit_1_val = []
-
-    cond_0 = []
-    cond_0001 = []
-    cond_001 = []
-    cond_01 = []
-    cond_1 = []
-
-    W_0 = model_0.linear1.weight.data
-    cond_0.append(kappa(W_0))
-
-    W_0001 = model_0001.linear1.weight.data
-    cond_0001.append(kappa(W_0001))
-
-    W_001 = model_001.linear1.weight.data
-    cond_001.append(kappa(W_001))
-
-    W_01 = model_01.linear1.weight.data
-    cond_01.append(kappa(W_01))
-
-    W_1 = model_1.linear1.weight.data
-    cond_1.append(kappa(W_1))
-
-    print(f"Init condition numbers:")
-    print(f"\tBeta = 0: {cond_0[-1]:.2f}")
-    print(f"\tBeta = 0.001: {cond_0001[-1]:.2f}")
-    print(f"\tBeta = 0.01: {cond_001[-1]:.2f}")
-    print(f"\tBeta = 0.1: {cond_01[-1]:.2f}")
-    print(f"\tBeta = 1: {cond_1[-1]:.2f}")
-
+    print(f"Init condition number: {cond[-1]:.2f}")
 
 
 
     # train and evaluate
 
     for epoch in range(config.epochs):
-        running_loss_0 = 0.0
-        running_loss_0001 = 0.0
-        running_loss_001 = 0.0
-        running_loss_01 = 0.0
-        running_loss_1 = 0.0
+        running_loss = 0.0
+        running_val_loss = 0.0
 
-        running_val_loss_0 = 0.0
-        running_val_loss_0001 = 0.0
-        running_val_loss_001 = 0.0
-        running_val_loss_01 = 0.0
-        running_val_loss_1 = 0.0
-
-        model_0.train()
-        model_0001.train()
-        model_001.train()
-        model_01.train()
-        model_1.train()
+        model.train()
 
         for batch_idx, (data, target) in enumerate(train_loader):
             data = Variable(data.view(-1, 28*28))
             data, target = data.to(device), target.to(device)
 
-            output_0 = model_0(data)
-            loss_0 = sail_0(output_0, target)
-            optimizer_0.zero_grad()
-            loss_0.backward()
-            optimizer_0.step()
+            W = model.linear1.weight
+            output = model(data)
+            loss_bas, loss = sail(output, target, W)
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
 
-            W_0001 = model_0001.linear1.weight
-            output_0001 = model_0001(data)
-            loss_bas_0001, loss_0001 = sail_0001(output_0001, target, W_0001)
-            optimizer_0001.zero_grad()
-            loss_0001.backward()
-            optimizer_0001.step()
-
-            W_001 = model_001.linear1.weight
-            output_001 = model_001(data)
-            loss_bas_001, loss_001 = sail_001(output_001, target, W_001)
-            optimizer_001.zero_grad()
-            loss_001.backward()
-            optimizer_001.step()
-
-            W_01 = model_01.linear1.weight
-            output_01 = model_01(data)
-            loss_bas_01, loss_01 = sail_01(output_01, target, W_01)
-            optimizer_01.zero_grad()
-            loss_01.backward()
-            optimizer_01.step()
-
-            W_1 = model_1.linear1.weight
-            output_1 = model_1(data)
-            loss_bas_1, loss_1 = sail_1(output_1, target, W_1)
-            optimizer_1.zero_grad()
-            loss_1.backward()
-            optimizer_1.step()
-
-            running_loss_0 += loss_0.item()
-            running_loss_0001 += loss_0001.item()
-            running_loss_001 += loss_001.item()
-            running_loss_01 += loss_01.item()
-            running_loss_1 += loss_1.item()
+            running_loss += loss.item()
 
             if batch_idx % config.log_interval == 0:
-                print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}\tLoss_0001: {:.6f},\tLoss_001: {:.6f},\tLoss_01: {:.6f},\tLoss_1: {:.6f}'.format(
+                print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                     epoch, batch_idx * len(data), len(train_loader.dataset),
-                    100. * batch_idx / len(train_loader), loss_0.item(), loss_0001.item(), loss_001.item(), loss_01.item(), loss_1.item()))
+                    100. * batch_idx / len(train_loader), loss_bas.item()))
 
 
-        model_0.eval()
-        model_0001.eval()
-        model_001.eval()
-        model_01.eval()
-        model_1.eval()
+        model.eval()
 
         with torch.no_grad():
             for data, target in test_loader:
                 data = Variable(data.view(-1, 28*28))
                 data, target = data.to(device), target.to(device)
 
-                output_0 = model_0(data)
-                loss_0 = sail_0(output_0, target)
+                W = model.linear1.weight
+                output_0 = model(data)
+                loss_bas_val, loss_val = sail(output, target, W)
 
-                W_0001 = model_0001.linear1.weight
-                output_0001 = model_0001(data)
-                loss_0001, loss_0001 = sail_0001(output_0001, target, W_0001)
+                running_val_loss += loss_bas_val.item()
 
-                W_001 = model_001.linear1.weight
-                output_001 = model_001(data)
-                loss_001, loss_001 = sail_001(output_001, target, W_001)
+        W = model.linear1.weight.data
+        cond.append(kappa(W))
 
-                W_01 = model_01.linear1.weight
-                output_01 = model_01(data)
-                loss_01, loss_01 = sail_01(output_01, target, W_01)
-
-                W_1 = model_1.linear1.weight
-                output_1 = model_1(data)
-                loss_1, loss_1 = sail_1(output_1, target, W_1)
-
-                running_val_loss_0 += loss_0.item()
-                running_val_loss_0001 += loss_0001.item()
-                running_val_loss_001 += loss_001.item()
-                running_val_loss_01 += loss_01.item()
-                running_val_loss_1 += loss_1.item()
-
-        W_0 = model_0.linear1.weight.data
-        cond_0.append(kappa(W_0))
-        W_0001 = model_0001.linear1.weight.data
-        cond_0001.append(kappa(W_0001))
-        W_001 = model_001.linear1.weight.data
-        cond_001.append(kappa(W_001))
-        W_01 = model_01.linear1.weight.data
-        cond_01.append(kappa(W_01))
-        W_1 = model_1.linear1.weight.data
-        cond_1.append(kappa(W_1))
-
-        fit_0.append(running_loss_0/len(train_loader.dataset))
-        fit_0_val.append(running_val_loss_0/config.test_batch_size)
-        fit_0001.append(running_loss_0001/len(train_loader.dataset))
-        fit_0001_val.append(running_val_loss_0001/config.test_batch_size)
-        fit_001.append(running_loss_001/len(train_loader.dataset))
-        fit_001_val.append(running_val_loss_001/config.test_batch_size)
-        fit_01.append(running_loss_01/len(train_loader.dataset))
-        fit_01_val.append(running_val_loss_01/config.test_batch_size)
-        fit_1.append(running_loss_1/len(train_loader.dataset))
-        fit_1_val.append(running_val_loss_1/config.test_batch_size)
-
+        fit.append(running_loss/len(train_loader.dataset))
+        fit_val.append(running_val_loss/config.test_batch_size)
 
         print(f"Epoch {epoch+1}/{config.epochs}:")
-        print(f"\tBeta = 0, Loss: {fit_0[-1]:.2f} with condition number {cond_0[-1]:.2f}")
-        print(f"\tBeta = 0.001, Loss: {fit_0001[-1]:.2f} with condition number {cond_0001[-1]:.2f}")
-        print(f"\tBeta = 0.01, Loss: {fit_001[-1]:.2f} with condition number {cond_001[-1]:.2f}")
-        print(f"\tBeta = 0.1, Loss: {fit_01[-1]:.2f} with condition number {cond_01[-1]:.2f}")
-        print(f"\tBeta = 1, Loss: {fit_1[-1]:.2f} with condition number {cond_1[-1]:.2f}")
+        print(f"\tLoss: {fit[-1]:.2f} with condition number {cond[-1]:.2f}")
 
 
     # save models
-    torch.save(model_0.state_dict(), "model_0.pt")
-    torch.save(model_0001.state_dict(), "model_0001.pt")
-    torch.save(model_001.state_dict(), "model_001.pt")
-    torch.save(model_01.state_dict(), "model_01.pt")
-    torch.save(model_1.state_dict(), "model_1.pt")
+    torch.save(model.state_dict(), "model.pt")
 
     results = {
-        "fit_0": fit_0,
-        "fit_0_val": fit_0_val,
-        "fit_0001": fit_0001,
-        "fit_0001_val": fit_0001_val,
-        "fit_001": fit_001,
-        "fit_001_val": fit_001_val,
-        "fit_01": fit_01,
-        "fit_01_val": fit_01_val,
-        "fit_1": fit_1,
-        "fit_1_val": fit_1_val,
-        "cond_0": cond_0,
-        "cond_0001": cond_0001,
-        "cond_001": cond_001,
-        "cond_01": cond_01,
-        "cond_1": cond_1,
+        "fit": fit,
+        "fit_val": fit_val,
+        "cond": cond,
     }
 
     with open("results.pkl", "wb") as f:
