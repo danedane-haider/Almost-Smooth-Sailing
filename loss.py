@@ -15,7 +15,7 @@ class SmoothSailing(nn.Module):
         if W is None or self.beta == 0:
             return base_loss
         else:
-            N = max(W.shape[1], W.shape[0])
+            N = min(W.shape[1], W.shape[0])
             W_norm = LA.norm(W, 2)**2
             W_fro = LA.norm(W, 'fro')**2 / N
             reg_loss = base_loss + self.beta * 0.5 * (W_norm - W_fro)
@@ -37,8 +37,8 @@ class SmoothSailingAE(nn.Module):
         if W1 is None or self.beta_end == 0:
             return base_loss
         else:
-            N = max(W1.shape[1], W1.shape[0])
-            M = max(M1.shape[1], M1.shape[0])
+            N = min(W1.shape[1], W1.shape[0])
+            M = min(M1.shape[1], M1.shape[0])
             W1_norm = LA.norm(W1, 2)**2
             W1_fro = LA.norm(W1, 'fro')**2 / N
             M1_norm = LA.norm(M1, 2)**2
